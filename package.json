@@ -1,0 +1,28 @@
+{
+  "name": "dialy_task",
+  "version": "1.0.0",
+  "description": "### This repository built to complete daily task day 1",
+  "main": "server.js",
+  "scripts": {
+    "start-dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ichungelo/daily_task.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ichungelo/daily_task/issues"
+  },
+  "homepage": "https://github.com/ichungelo/daily_task#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "nodemon": "^2.0.15"
+  }
+}
