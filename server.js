@@ -12,5 +12,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/', require('./routes/route'));
-app.listen(connection.port, () => console.log(`Example app listening on port ${connection.port}!`));
+app.use('/api', require('./routes/route'));
+
+app.listen(connection.port, () => console.log(`Example app listening ${connection.host}:${connection.port}!`));
