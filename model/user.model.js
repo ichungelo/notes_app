@@ -21,7 +21,39 @@ const userSignUp = (req, result) => {
     });
 };
 
+const userSignIn = (req, result) => {
+    const userSignInQuery = `SELECT * FROM users WHERE username = '${req.username}'`;
+
+    sql.query(userSignInQuery, (err, res) => {
+        if (err) throw err;
+        result(null, res[0]);
+        return;
+    });
+};
+
+const getUserId = (req, result) => {
+    const getUserIdQuery = `SELECT user_id FROM users WHERE username = '${req.username}'`;
+
+    sql.query(getUserIdQuery, (err, res) => {
+        if (err) throw err;
+        result(null, res);
+        return;
+    });
+};
+
+const tokenUserSignIn = (req, result) => {
+    const tokenUserSignInQuery = `UPDATE users SET token = '${req.token}' WHERE username = '${req.username}'`;
+
+    sql.query(tokenUserSignInQuery, (err, res) => {
+        if (err) throw err;
+        result(null, res);
+    });
+};
+
 module.exports = {
     checkUsername,
-    userSignUp
+    userSignUp,
+    userSignIn,
+    getUserId,
+    tokenUserSignIn
 };

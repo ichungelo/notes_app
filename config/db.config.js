@@ -1,8 +1,11 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
 const configDB = {
-    host: 'localhost',
-    user: 'krisnas',
-    password: 'Taiayam12!',
-    database: 'notes_app'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 };
 
 module.exports = configDB;
