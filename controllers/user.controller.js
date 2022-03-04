@@ -75,10 +75,14 @@ const signInUser = (req, res) => {
                         const token = jwt.sign(
                             {
                                 username: req.body.username,
-                                user_id: data.user_id
+                                user_id: data[0].user_id
                             },
-                            process.env.SECRET_KEY
+                            process.env.SECRET_KEY,
                         );
+
+                        res.cookie('token', token, {
+                            httpOnly: true
+                        });
 
                         tokenUserSignIn(
                             {
