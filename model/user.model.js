@@ -50,6 +50,11 @@ const tokenUserSignIn = (req, result) => {
     });
 };
 
+// const getAllUserNotes = (req, result) => {
+//     const getAllUserNotesQuery = `SELECT note_id, title, note WHERE user_id = ${req.user_id} AND is_delete = false`;
+
+//     sql.query(getAllUserNotesQuery, (err, res) => {})
+// }
 module.exports = {
     checkUsername,
     userSignUp,
