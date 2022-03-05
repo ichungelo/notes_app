@@ -1,6 +1,6 @@
 const configConn = {
-    host: 'http://127.0.0.1',
-    port: '3000'
+    host: process.env.CONN_HOST || 'localhost',
+    port: process.env.CONN_PORT || '3000'
 };
 
 module.exports = configConn;

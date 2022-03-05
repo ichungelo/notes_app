@@ -12,14 +12,14 @@ const addNewUser = async (req, res) => {
         if (err) {
             throw err;
         } else {
-            if (data == null) {
+            if (data === null) {
                 userSignUp({
                     username: req.body.username,
                     email: req.body.email,
                     password: passwordhash
                 }, (err) => {
                     if (err) {
-                        console.log(err);
+                        console.error(err);
                     } else {
                         res.send({
                             status: 'OK',
@@ -53,6 +53,11 @@ const signInUser = (req, res) => {
         if (err) {
             throw err;
         } else {
+            if (data === undefined) {
+                return res.status(401).send({
+                    message: 'Invalid username'
+                });
+            }
             const isValid = await authBcrypt(req.body.password, data.password);
 
             if (isValid) {

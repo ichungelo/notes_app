@@ -6,7 +6,10 @@ const generateJwt = (payload) => {
             username: payload.username,
             user_id: payload.user_id
         },
-        process.env.SECRET_KEY);
+        process.env.SECRET_KEY,
+        {
+            expiresIn: '1h'
+        });
 
         return token;
     } catch (error) {
@@ -14,7 +17,17 @@ const generateJwt = (payload) => {
     }
 };
 
+const authJwt = (token) => {
+    try {
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        return decoded;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 module.exports = {
-    generateJwt
+    generateJwt,
+    authJwt
 };
 

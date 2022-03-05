@@ -1,52 +1,55 @@
 const { addNewUser, signInUser } = require('../services/user.service.js');
 
 const signup = async (req, res) => {
-    const { 
-        username,
-        email,
-        password,
-        confirm
-    } = req.body;
-
-    if (!(username && email && password && confirm)) {
-        return res.status(400).send({
-            message: 'Incomplete input'
-
-        });
-    }
-
-    if ( password !== confirm ) {
-        return res.status(400).send({
-            message: 'Password not match'
-        });
-    }
-
     try {
+        const {
+            username,
+            email,
+            password,
+            confirm
+        } = req.body;
+
+        if (!(username && email && password && confirm)) {
+            return await res.status(400).send({
+                message: 'Incomplete input'
+
+            });
+        }
+
+        if (password !== confirm) {
+            return await res.status(400).send({
+                message: 'Password not match'
+            });
+        }
+
         await addNewUser(req, res);
     } catch (err) {
+        console.error(err);
         return await res.status(500).send({
-            error: err
+            message: 'Internal service error'
         });
     }
 };
 
 const signin = async (req, res) => {
-    const {
-        username,
-        password
-    } = req.body;
-
-    if (!(username && password)) {
-        return res.status(400).send({
-            status: 'Incomplete input'
-        });
-    }
-
+    
     try {
+        const {
+            username,
+            password
+        } = req.body;
+    
+        if (!(username && password)) {
+            return await res.status(400).send({
+                status: 'Incomplete input'
+            });
+        }
+        
         signInUser(req, res);
     } catch (err) {
+        console.error(err);
         return await res.status(500).send({
-            error: err
+            message: 'Internal service error'
         });
     }
 };

@@ -1,6 +1,3 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
 const configDB = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
