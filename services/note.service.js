@@ -1,5 +1,5 @@
 const { authJwt } = require('../middleware/auth.jwt');
-const { createNewNote, getAllNotesByUserId, getSearchNotesByTitle } = require('../model/note.model');
+const { createNewNote, getAllNotesByUserId, getSearchNotesByTitle, updateNoteByIdModel, deleteNoteByIdModel } = require('../model/note.model');
 
 const addNewNoteById = (req, res) => {
     const {
@@ -64,8 +64,57 @@ const readNotesByTitle = (req, res) => {
     });
 };
 
+const updateNoteById = (req, res) => {
+    const {
+        token,
+        note_id,
+        title,
+        note
+    } = req;
+    const decoded = authJwt(token);
+    updateNoteByIdModel({
+        user_id: decoded.user_id,
+        note_id: note_id,
+        title: title,
+        note: note
+    }, (err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.send({
+                message: 'Note Updated'
+            });
+        }
+    });
+};
+
+const deleteNoteById = (req, res) => {
+    const {
+        token,
+        note_id
+    } = req;
+    const decoded = authJwt(token);
+
+    deleteNoteByIdModel({
+        user_id: decoded.user_id,
+        note_id: note_id
+    }, (err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.send({
+                message: 'Note deleted'
+            });
+        }
+    });
+};
+
+
+
 module.exports = {
     addNewNoteById,
     readAllNotes,
-    readNotesByTitle
+    readNotesByTitle,
+    updateNoteById, 
+    deleteNoteById
 };

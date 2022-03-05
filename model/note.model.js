@@ -43,10 +43,38 @@ const getSearchNotesByTitle = (req, result) => {
     });
 };
 
+const updateNoteByIdModel = (req, result) => {
+    const updateNoteByIdModelQuery = `UPDATE notes SET title = '${req.title}', note = '${req.note}' WHERE note_id = '${req.note_id}' AND user_id = '${req.user_id}'`;
+
+    sql.query(updateNoteByIdModelQuery, (err, res) => {
+        if (err) {
+            result( err, null);
+            throw err;
+        } else {
+            result( null, res );
+        }
+        return;
+    });
+};
+
+const deleteNoteByIdModel = (req, result) => {
+    const deleteNoteByIdModelQuery = `UPDATE notes SET is_delete = true WHERE note_id = '${req.note_id}' AND user_id = '${req.user_id}'`;
+
+    sql.query(deleteNoteByIdModelQuery, (err, res) => {
+        if (err) {
+            result(err, null);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
 module.exports = {
     createNewNote,
     getAllNotesByUserId,
-    getSearchNotesByTitle
+    getSearchNotesByTitle,
+    updateNoteByIdModel,
+    deleteNoteByIdModel
 };
 
 

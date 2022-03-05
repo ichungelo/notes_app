@@ -8,7 +8,7 @@ router.route('/auth/signin').post(signin);
 router.route('/notes')
     .get(getAllNotes)
     .post(createNote)
-    // .update(updateNote)
-    // .delete(deleteNote);
+    .put(updateNote)
+    .delete(deleteNote);
 router.route('/notes/search/:query').get(getNotesByTitle);
 module.exports = router;

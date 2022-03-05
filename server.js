@@ -10,14 +10,12 @@ app.use(cookieParser());
 app.use(cors());
 dotenv.config();
 
-app.get('/', (req, res) => {
-    console.log(req.cookies);
-    res.send({
-        res: 'OK',
-        token: req.cookies.token
+app.route('*').all((req, res) => {
+    res.status(404).send({
+        message: 'Not found'
     });
 });
 
-app.use('/api', require('./routes/route'));
+app.use('/api', require('./routes/router.js'));
 
 app.listen(connection.port, () => console.log(`Example app listening ${connection.host}:${connection.port}!`));
