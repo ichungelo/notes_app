@@ -1,4 +1,4 @@
-const addNewNoteById = require('../services/note.service.js');
+const {addNewNoteById, readAllNotes} = require('../services/note.service.js');
 
 const createNote = async (req, res) => {
     
@@ -8,6 +8,7 @@ const createNote = async (req, res) => {
             title,
             note
         } = req.body;
+
         if (!(title && note)) {
             return await res.status(400).send({
                 message: 'Incomplete input'
@@ -34,4 +35,28 @@ const createNote = async (req, res) => {
     }
 };
 
-module.exports = createNote;
+const getAllNotes = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+
+        if (token === undefined) {
+            return await res.status(401).send({
+                message: 'You should signin first'
+            });
+        }
+
+        readAllNotes({
+            token: token
+        }, res);
+    } catch (err) {
+        console.error(err);
+        return await res.status(500).send({
+            message: 'Internal service error'
+        });
+    }
+};
+
+module.exports = {
+    createNote,
+    getAllNotes
+};

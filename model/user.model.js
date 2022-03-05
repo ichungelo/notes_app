@@ -41,19 +41,9 @@ const getUserId = (req, result) => {
     });
 };
 
-const tokenUserSignIn = (req, result) => {
-    const tokenUserSignInQuery = `UPDATE users SET token = '${req.token}' WHERE username = '${req.username}'`;
-
-    sql.query(tokenUserSignInQuery, (err, res) => {
-        if (err) throw err;
-        result(null, res);
-    });
-};
-
 module.exports = {
     checkUsername,
     userSignUp,
     userSignIn,
     getUserId,
-    tokenUserSignIn
 };

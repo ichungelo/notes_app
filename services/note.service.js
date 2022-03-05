@@ -1,5 +1,5 @@
 const { authJwt } = require('../middleware/auth.jwt');
-const { createNewNote } = require('../model/note.model');
+const { createNewNote, getAllNotesByUserId } = require('../model/note.model');
 
 const addNewNoteById = (req, res) => {
     const {
@@ -29,4 +29,25 @@ const addNewNoteById = (req, res) => {
     });
 };
 
-module.exports = addNewNoteById;
+const readAllNotes = (req, res) => {
+    const decoded = authJwt(req.token);
+
+    getAllNotesByUserId({
+        user_id: decoded.user_id
+    }, (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(data);
+            res.send({
+                message: 'OK',
+                note: data
+            });
+        }
+    });
+};
+
+module.exports = {
+    addNewNoteById,
+    readAllNotes
+};

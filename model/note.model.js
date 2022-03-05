@@ -11,8 +11,19 @@ const createNewNote = (req, result) => {
     });
 };
 
+const getAllNotesByUserId = (req, result) => {
+    const getAllNotesByUserIdQuery = `SELECT note_id, title, note FROM notes WHERE user_id = '${req.user_id}' AND is_delete = false`;
+
+    sql.query(getAllNotesByUserIdQuery, (err, res) => {
+        if (err) throw err;
+        result( null, res);
+        return;
+    });
+};
+
 module.exports = {
-    createNewNote
+    createNewNote,
+    getAllNotesByUserId
 };
 
 

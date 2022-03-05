@@ -1,6 +1,6 @@
 const { generateBcrypt, authBcrypt } = require('../middleware/auth.bcrypt.js');
 const { generateJwt } = require('../middleware/auth.jwt.js');
-const { userSignUp, checkUsername, userSignIn, getUserId, tokenUserSignIn } = require('../model/user.model.js');
+const { userSignUp, checkUsername, userSignIn, getUserId } = require('../model/user.model.js');
 
 const addNewUser = async (req, res) => {
     const passwordhash = await generateBcrypt(req.body.password);
@@ -78,21 +78,9 @@ const signInUser = (req, res) => {
                             httpOnly: true
                         });
 
-                        tokenUserSignIn(
-                            {
-                                username: req.body.username,
-                                token: token
-                            },
-                            (err) => {
-                                if (err) {
-                                    throw err;
-                                } else {
-                                    res.send({
-                                        status: 'login success'
-                                    });
-                                }
-                            }
-                        );
+                        res.send({
+                            status: 'login success'
+                        });
                     }
                 });
             } else {
