@@ -1,4 +1,4 @@
-const {addNewNoteById, readAllNotes} = require('../services/note.service.js');
+const {addNewNoteById, readAllNotes, readNotesByTitle } = require('../services/note.service.js');
 
 const createNote = async (req, res) => {
     
@@ -56,7 +56,36 @@ const getAllNotes = async (req, res) => {
     }
 };
 
+const getNotesByTitle = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+
+        if (token === undefined) {
+            return await res.status(401).send({
+                message: 'You should signin first'
+            });
+        }
+
+        readNotesByTitle({
+            token: token,
+            query: req.params.query
+        }, res);
+
+    } catch (err) {
+        console.error(err);
+        return await res.status(500).send({
+            message: 'Internal service error'
+        });
+
+    }
+};
+
+
+
 module.exports = {
     createNote,
-    getAllNotes
+    getAllNotes,
+    getNotesByTitle,
+    // updateNote,
+    // deleteNote
 };

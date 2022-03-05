@@ -25,8 +25,12 @@ const userSignIn = (req, result) => {
     const userSignInQuery = `SELECT * FROM users WHERE username = '${req.username}'`;
 
     sql.query(userSignInQuery, (err, res) => {
-        if (err) throw err;
-        result(null, res[0]);
+        if (err) {
+            result(err, null);
+            throw err;
+        } else {
+            result(null, res[0]);
+        }
         return;
     });
 };
@@ -35,8 +39,12 @@ const getUserId = (req, result) => {
     const getUserIdQuery = `SELECT user_id FROM users WHERE username = '${req.username}'`;
 
     sql.query(getUserIdQuery, (err, res) => {
-        if (err) throw err;
-        result(null, res);
+        if (err) {
+            result(err, null);
+            throw err;
+        } else {
+            result(null, res);
+        }
         return;
     });
 };
